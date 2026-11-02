@@ -1,0 +1,27 @@
+services:
+  # Backend FastAPI Web Service
+  - type: web
+    name: social-media-analytics-backend
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    rootDir: backend
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: ENVIRONMENT
+        value: production
+
+  # Frontend Static Site
+  - type: web
+    name: social-media-analytics-frontend
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    rootDir: frontend
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: social-media-analytics-backend
+          property: host
