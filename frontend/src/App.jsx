@@ -14,7 +14,13 @@ import LiveFeed from './components/LiveFeed';
 import NetworkGraph from './components/NetworkGraph';
 import CampaignsExplorer from './components/CampaignsExplorer';
 
-const API_BASE = "/api/v1/analytics";
+const RAW_API_URL = import.meta.env.VITE_API_URL || "";
+const FORMATTED_API_URL = RAW_API_URL 
+  ? (RAW_API_URL.startsWith("http") ? RAW_API_URL : `https://${RAW_API_URL}`) 
+  : "";
+const API_BASE = FORMATTED_API_URL 
+  ? `${FORMATTED_API_URL.replace(/\/$/, '')}/api/v1/analytics` 
+  : "/api/v1/analytics";
 
 // Modern harmonious color palettes
 const COLORS = ['#6366f1', '#06b6d4', '#10b981', '#f59e0b', '#ec4899', '#8b5cf6'];

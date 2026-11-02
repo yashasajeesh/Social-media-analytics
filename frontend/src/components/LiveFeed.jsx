@@ -12,12 +12,20 @@ export default function LiveFeed() {
 
   useEffect(() => {
     // Determine ws url
-    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const host = window.location.host;
-    // If running on vite port 3000, Vite proxy forwards /ws, or fall back directly to port 8000
-    const wsUrl = window.location.port === '3000' 
-      ? `ws://127.0.0.1:8000/ws/analytics` 
-      : `${protocol}//${host}/ws/analytics`;
+    let wsUrl;
+    const rawApiUrl = import.meta.env.VITE_API_URL;
+    if (rawApiUrl) {
+      const cleanHost = rawApiUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
+      const wsProtocol = (rawApiUrl.startsWith('https://') || window.location.protocol === 'https:') ? 'wss:' : 'ws:';
+      wsUrl = `${wsProtocol}://${cleanHost}/ws/analytics`;
+    } else {
+      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      const host = window.location.host;
+      // If running on vite port 3000, Vite proxy forwards /ws, or fall back directly to port 8000
+      wsUrl = window.location.port === '3000' 
+        ? `ws://127.0.0.1:8000/ws/analytics` 
+        : `${protocol}//${host}/ws/analytics`;
+    }
 
     const connectWebSocket = () => {
       try {
