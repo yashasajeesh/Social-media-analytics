@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+backend/venv/
+venv/
+ENV/
+*.db
+*.sqlite3
+
+# Node & Frontend
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+.npm
+.eslintcache
+
+# Testing & Logs
+.pytest_cache/
+*.log
+.coverage
+htmlcov/
+
+# Environment variables
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
