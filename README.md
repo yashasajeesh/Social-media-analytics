@@ -38,7 +38,8 @@ social-media-analytics/
 │   │   ├── database.py                # Database connection & get_db dependency
 │   │   └── main.py                    # FastAPI application & WebSocket endpoints
 │   ├── data/
-│   │   └── Social Media Engagement Dataset.csv # 12,000 post benchmark dataset
+│   │   ├── Social Media Engagement Dataset.csv # 12,000 post benchmark dataset
+│   │   └── Instagram_Analytics.csv             # 30,000 record Instagram analytics dataset
 │   ├── tests/
 │   │   ├── test_engines.py            # Unit tests for all 4 AI engines
 │   │   └── test_main.py               # REST API & WebSocket integration tests
